@@ -1,0 +1,90 @@
+{
+  "info": {
+    "name": "Petstore API Automation",
+    "_postman_id": "12345-67890-petstore-collection",
+    "description": "Collection for automating Petstore API tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Pet (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": {{randomPetId}},\n  \"name\": \"doggie\",\n  \"status\": \"available\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/pet",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pet"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+              "",
+              "let jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response has id\", function () { pm.expect(jsonData.id).to.exist; });",
+              "pm.test(\"Response has correct name\", function () { pm.expect(jsonData.name).to.eql(\"doggie\"); });",
+              "",
+              "pm.environment.set(\"petId\", jsonData.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Pet by ID (GET)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/pet/{{petId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pet",
+            "{{petId}}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+              "",
+              "let jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Pet ID matches stored ID\", function () {",
+              "   pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"petId\")));",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "randomPetId",
+      "value": "{{$randomInt}}"
+    }
+  ]
+}

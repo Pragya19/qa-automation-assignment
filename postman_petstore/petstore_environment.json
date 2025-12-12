@@ -1,0 +1,21 @@
+{
+  "id": "petstore-env-001",
+  "name": "Petstore Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "https://petstore.swagger.io/v2",
+      "enabled": true
+    },
+    {
+      "key": "petId",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "randomPetId",
+      "value": "",
+      "enabled": true
+    }
+  ]
+}
