@@ -1,0 +1,23 @@
+{
+  "order": {
+    "products": [
+      {
+        "name": "book",
+        "qty": 1
+      },
+      {
+        "name": "laptop",
+        "qty": 1
+      }
+    ],
+    "billing": {
+      "firstName": "Pragya",
+      "lastName": "Jha",
+      "email": "pragya@example.com",
+      "phone": "9999999999",
+      "city": "Ranchi",
+      "address": "Some street",
+      "zip": "834001"
+    }
+  }
+}
